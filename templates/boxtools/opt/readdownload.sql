@@ -1,0 +1,1 @@
+INSERT INTO DownloadClients VALUES(1,1,'Transmission','Transmission',replace('{\n  "host": "localhost",\n  "port": 9091,\n  "useSsl": false,\n  "urlBase": "/transmission/",\n  "username": "media",\n  "password": "password",\n  "musicCategory": "readarr",\n  "recentTvPriority": 0,\n  "olderTvPriority": 0,\n  "addPaused": false\n}','\n',char(10)),'TransmissionSettings',1);

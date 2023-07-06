@@ -1,0 +1,112 @@
+#!/bin/sh
+##Built around NGINX don't install apache2
+apt-mark hold apache2
+##Make media and Emby sudo - probably not required for emby..
+sudo usermod -s /bin/bash -aG sudo media
+sudo usermod -s /bin/bash emby
+## Allow debian-transmission and media to interact
+sudo adduser  media debian-transmission
+sudo adduser debian-transmission media
+## Allow media and emby to interact 
+sudo adduser  media emby
+sudo adduser emby media
+# configure console locale
+#dpkg-reconfigure console-setup
+#dpkg-reconfigure keyboard-configuration
+# mount cdrom to copy custom configs
+unpack_tars(){
+    dir="$1"
+    echo "Starting unpack_tars '$dir'..."
+    if [ -d "$dir" ]; then
+        echo "Scanning tars in '$dir'..."
+        for f in "$dir"/*.tar; do
+            echo "Unpacking '$f'..."
+            tar -xvf $f || echo "WARN: $f failed."
+            echo "Unpacked '$f'."
+        done
+    fi
+    echo "Finished unpack_tars '$dir'."
+}
+unpack_tars "/media/cdrom/simple-cdd/cfg"
+## Make python3 and pip3 defaults
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+sudo python3 -m pip install --user virtualenv
+sudo python3 -m venv env
+sudo source env/bin/activate
+crontab -r
+(crontab -u root -l ; echo "@reboot /opt/ipwatch/ipwatch.py /opt/ipwatch/config.txt ") | crontab -u root -
+(crontab -u root -l ; echo "0 */2 * * * /opt/ipwatch/ipwatch.py /opt/ipwatch/config.txt ") | crontab -u root -
+(crontab -u root -l ; echo "@reboot /home/media/lateradarrkey.database ") | crontab -u root -
+(crontab -u root -l ; echo "*/2 * * * * /home/media/lateradarrkey.database ") | crontab -u root -
+##Added Transmission gets stuck sometimes - force off and restart
+(crontab -u root -l ; echo "0 */6 * * * ps -ef | grep transmission-daemon | grep -v grep | awk '{print $2}' | xargs kill ") | crontab -u root -
+# Configure network for Transmission Daemon and VPN 
+cat <<EOF >> /etc/sysctl.conf
+net.ipv4.ip_forward=1
+net.core.rmem_default = 1048576
+net.core.rmem_max = 16777216
+net.core.wmem_default = 1048576
+net.core.wmem_max = 16777216
+net.core.optmem_max = 65536
+net.ipv4.tcp_rmem = 4096 1048576 2097152
+net.ipv4.tcp_wmem = 4096 65536 16777216
+EOF
+cat <<EOF >> /etc/php/8.2/cli/php.ini
+zend_extension=opcache
+opcache.enable=1
+opcache.interned_strings_buffer=8
+opcache.max_accelerated_files=10000    
+opcache.memory_consumption=128
+opcache.save_comments=1
+opcache.revalidate_freq=1
+apc.enable_cli=1
+EOF
+### mods for VPN tunneling NOTE: move to namespace-openvpn 
+chmod -R o-rwx /home
+mkdir -p /home/vpn
+chgrp -R vpn /home/vpn
+mount -t auto /media/cdrom
+chmod a+r /etc/apt/sources.list
+sudo chown -R media:media /opt/Prowlarr
+sudo chown -R media:media /opt/Lidarr
+sudo chown -R media:media /opt/Readarr
+sudo chown -R media:media /opt/Radarr
+sudo chown -R media:media /home/media
+sudo chown -R media:media /opt/mp4auto
+sudo chown -R emby:emby /opt/emby-server
+sudo chown -R emby:emby /var/lib/emby -Rv
+sudo chown -R debian-transmission:debian-transmission /etc/transmission-daemon/
+sudo chown -R vpn:vpn /home/vpn/
+sudo chmod -R 777 /home/media/incomplete
+sudo chmod -R 777 /home/media/downloads
+sudo chmod -R 777 /opt/bt_scripts/*.sh
+sudo chmod -R 777 /var/www/html/
+sudo chown -R www-data:www-data /var/www/html/nextcloud
+sudo chmod +x /opt/ipwatch/ipwatch.py
+sudo chmod +x /etc/transmission-daemon/unpack.sh
+sudo chmod -R 775 /etc/transmission-daemon/
+pkexec chmod 0755 /etc/sudoers.d
+sudo sed -i '/GRUB_TIMEOUT=5/c GRUB_TIMEOUT=2' /etc/default/grub
+sudo sed -i '/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/c GRUB_CMDLINE_LINUX_DEFAULT=""' /etc/default/grub
+sudo sed -i  '18i GRUB_BACKGROUND="/etc/grub.d/grub.png"' /etc/default/grub
+sudo update-grub
+apt-key update
+systemctl enable ssh
+systemctl enable navpn
+systemctl enable socat-tcp9091
+#systemctl enable systemup
+#systemctl enable systemdown
+sudo update-ca-certificates -f
+## bookworm long boot times needs fixed but disabled for now 
+systemctl disable systemd-networkd-wait-online.service
+rm /usr/lib/systemd/system/systemd-networkd-wait-online.service
+rm /etc/resolv.conf
+cat >"/etc/resolv.conf" <<RES
+## use google instead of local or router ip
+##
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+RES
+msg y
+

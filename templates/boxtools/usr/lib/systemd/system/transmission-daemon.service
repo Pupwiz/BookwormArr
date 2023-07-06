@@ -1,0 +1,17 @@
+[Unit]
+Description=Transmission BitTorrent Daemon
+After=navpn.service network-online.target 
+Wants=network-online.target systemd-networkd-wait-online.service
+Requires=navpn.service
+StartLimitIntervalSec=500
+StartLimitBurst=5
+[Service]
+User=root
+Type=simple
+Restart=always
+RestartSec=5s
+ExecStart=/bin/sh -c 'exec /sbin/ip netns exec protected /usr/bin/sudo -u debian-transmission /usr/bin/transmission-daemon -f --log-error -e /home/vpn/trans.log -g /var/lib/transmission-daemon/info'
+ExecReload=/bin/kill -s HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target

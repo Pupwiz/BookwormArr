@@ -1,0 +1,7 @@
+IFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}')
+NETIP=$(ip a s $IFACE | egrep -o 'inet [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d' ' -f2) 
+sed -i -e "s/[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}/$NETIP/g" ./organizer.sql
+
+sqlite3 /home/xbmc/test.db "INSERT INTO DownloadClients VALUES (NULL,'$USERNAME','Three','Four','{"host": "localhost", "port": 8085, "apiKey": "$API", "username": "$USERNAME", "password": "$PASSWORD", "tvCategory": "tv", "recentTvPriority": 1, "olderTvPriority": -100, "useSsl": false}', 5)"
+
+sqlite3 /home/media/.config/Prowlarr/prowlarr.db "INSERT INTO Applications VALUES(1,'Radarr','Radarr',replace('{\n  "prowlarrUrl": "http://localhost:9696/prowlarr",\n  "baseUrl": "http://localhost:7878/radarr",\n  "apiKey": "$radarrkey",\n  "syncCategories": [\n    2000,\n    2010,\n    2020,\n    2030,\n    2040,\n    2045,\n    2050,\n    2060,\n    2070,\n    2080\n  ]\n}','\n',char(10)),'RadarrSettings',2,'[]');
