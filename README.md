@@ -8,3 +8,9 @@ needs tweaks to allow for ISO install of server ready to run
 not completely working but seems to run some of the required
 
 fixed custom extras folder install
+
+Installs Sonarr, Radarr, Prowlarr, Flaresolverr
+
+Installs Cloudcmd, Nodejs, npm
+
+Mp4 automator 
