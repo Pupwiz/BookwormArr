@@ -39,7 +39,6 @@ systemctl daemon-reload
 systemctl enable cloudcmd.service
 # Run the service
 systemctl start cloudcmd.service
-EOL
 /bin/bash /home/media/update_arr.database || exit 1
 #echo "Updating database Arr programs completed..!"  | wall -n
 echo "System will reboot one last time for final updates install..!"  | wall -n
@@ -59,8 +58,8 @@ Login User: \U
 \t
 Welcome!
 EOF
-export MYPWD="mediabox"; 
-export NEWPWD="nextmedia"; 
+export MYPWD="mediabox";
+export NEWPWD="nextmedia";
 sudo mysql_secure_installation 2>/dev/null <<MSI
 n
 y
@@ -77,7 +76,7 @@ mysql --user="root" --execute="GRANT ALL PRIVILEGES ON nextcloud.* TO nextcloud@
 mysql --user="root" --execute="FLUSH PRIVILEGES;"
 ##Set Local IP for Organizer to find links
 IFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}')
-NETIP=$(ip a s $IFACE | egrep -o 'inet [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d' ' -f2) 
+NETIP=$(ip a s $IFACE | egrep -o 'inet [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d' ' -f2)
 cat > /tmp/org.sql << ORG
  UPDATE tabs SET url = REPLACE(url,'http://127.0.0.1', 'http://$NETIP');
  UPDATE tabs SET url_local = REPLACE(url_local,'http://127.0.0.1', 'http://$NETIP');
