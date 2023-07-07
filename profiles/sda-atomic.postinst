@@ -31,9 +31,9 @@ unpack_tars "/media/cdrom/simple-cdd/cfg"
 ## Make python3 and pip3 defaults
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10
 sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
-sudo python3 -m pip install --user virtualenv
-sudo python3 -m venv env
-sudo source env/bin/activate
+#sudo python3 -m pip install --user virtualenv
+#sudo python3 -m venv env
+#sudo source env/bin/activate
 crontab -r
 (crontab -u root -l ; echo "@reboot /opt/ipwatch/ipwatch.py /opt/ipwatch/config.txt ") | crontab -u root -
 (crontab -u root -l ; echo "0 */2 * * * /opt/ipwatch/ipwatch.py /opt/ipwatch/config.txt ") | crontab -u root -
@@ -108,4 +108,3 @@ cat >"/etc/resolv.conf" <<RES
 nameserver 8.8.8.8
 nameserver 8.8.4.4
 RES
-msg y
