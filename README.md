@@ -9,6 +9,10 @@ not completely working but seems to run some of the required
 
 fixed custom extras folder install
 
+fixed boot and network issues - bookworm service isses 
+
+still needs looked at.
+
 Installs Sonarr, Radarr, Prowlarr, Flaresolverr
 
 Installs Cloudcmd, Nodejs, npm
