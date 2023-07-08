@@ -64,5 +64,8 @@ done< <(find . -name '*.iso')
   rm -rf isofiles mbr_template.bin
   rm $DEB
   rm *.gz
-  mv preseed-debian-12-amd64-DVD-1.iso ../
+  mv $new_iso $(pwd)
+cd $(pwd)
+echo " New iso created $new_iso in $(pwd)...!"
+
   
