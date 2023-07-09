@@ -24,7 +24,7 @@
 
 dialog example
 
-ounter=0
+counter=0
 (
 while :
 do
