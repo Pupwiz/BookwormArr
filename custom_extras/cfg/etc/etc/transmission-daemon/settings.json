@@ -50,7 +50,7 @@
     "rpc-enabled": true,
     "rpc-host-whitelist": "",
     "rpc-host-whitelist-enabled": false,
-    "rpc-password": "password",
+    "rpc-password": "bookworm",
     "rpc-port": 9091,
     "rpc-url": "/transmission/",
     "rpc-username": "media",
