@@ -21,3 +21,21 @@
     echo -e "XXX\n100\nyum remove package_3... Done.\nXXX"
     sleep 1
 } |whiptail --title "Yum Removal" --gauge "Please wait while installing" 6 60 0
+
+dialog example
+
+ounter=0
+(
+while :
+do
+cat <<EOF
+XXX
+$counter
+git clone https://github.com/mdhiggins/sickbeard_mp4_automator.git mp4auto ( $counter%):
+XXX
+EOF
+(( counter+=10 ))
+[ $counter -eq 100 ] && break
+sleep 1
+done
+) | dialog --title "Cloaning MP4Automator" --gauge "Please wait" 7 70 0
