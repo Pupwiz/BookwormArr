@@ -64,7 +64,7 @@ done< <(find . -name '*.iso')
   rm -rf isofiles mbr_template.bin
   rm $DEB
   rm *.gz
-  mv $new_iso $(pwd)
+  mv $new_iso ../
 cd $(pwd)
 echo " New iso created $new_iso in $(pwd)...!"
 
