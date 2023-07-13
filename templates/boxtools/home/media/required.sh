@@ -14,8 +14,6 @@ pip install swig --break-system-packages || exit 1
 pip install -r /opt/mp4auto/setup/requirements.txt --break-system-packages || exit 1
 chown media: -R /opt/mp4auto || exit 1
 echo "Installing Cloudcmd with Gritty..!"  | wall -n
-sudo -H -E npm config set user 0
-sudo -H -E npm config set unsafe-perm true
 sudo -H -E npm install cloudcmd -g
 sudo -H -E npm install gritty -g
 cat >"/etc/systemd/system/cloudcmd.service" <<SER
