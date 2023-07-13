@@ -55,7 +55,7 @@ Login User: \U
 Welcome!
 EOF
 ##Set Local IP for Organizer to find links
-IFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2;getline}')
+IFACE=$(ip link | awk -F: '$0 !~ "lo|vir|wl|tailscale|^[^0-9]"{print $2;getline}')
 NETIP=$(ip a s $IFACE | egrep -o 'inet [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | cut -d' ' -f2)
 cat > /tmp/org.sql << ORG
  UPDATE tabs SET url = REPLACE(url,'http://127.0.0.1', 'http://$NETIP');
