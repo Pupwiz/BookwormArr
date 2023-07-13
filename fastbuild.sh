@@ -27,6 +27,7 @@ done< <(find . -name '*.iso')
   mkdir isofiles
   bsdtar -C isofiles -xf "$DEB"
   tmp_isolinux_cfg=$(mktemp --tmpdir isolinux.XXXXX)
+  sed 's/prompt 0/prompt 3/g' isofiles/isolinux/isolinux.cfg >$tmp_isolinux_cfg
   sed 's/TIMEOUT 60/TIMEOUT 3/g' isofiles/isolinux/isolinux.cfg >$tmp_isolinux_cfg
   echo "default install" >>$tmp_isolinux_cfg
   chmod +w isofiles/isolinux/isolinux.cfg
@@ -62,7 +63,7 @@ done< <(find . -name '*.iso')
     isofiles
   chmod +w isofiles -R
   rm -rf isofiles mbr_template.bin
-  rm $DEB
+  #rm $DEB
   rm *.gz
   mv $new_iso ../
 cd $(pwd)
