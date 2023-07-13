@@ -27,7 +27,7 @@ done< <(find . -name '*.iso')
   mkdir isofiles
   bsdtar -C isofiles -xf "$DEB"
   tmp_isolinux_cfg=$(mktemp --tmpdir isolinux.XXXXX)
-  sed 's/timeout 0/timeout 3/g' isofiles/isolinux/isolinux.cfg >$tmp_isolinux_cfg
+#  sed 's/timeout 0/timeout 3/g' isofiles/isolinux/isolinux.cfg >$tmp_isolinux_cfg
   echo "default install" >>$tmp_isolinux_cfg
   chmod +w isofiles/isolinux/isolinux.cfg
   cat $tmp_isolinux_cfg >isofiles/isolinux/isolinux.cfg
@@ -35,7 +35,7 @@ done< <(find . -name '*.iso')
   rm $tmp_isolinux_cfg
   chmod +w isofiles/boot/grub/grub.cfg
   echo 'set default="2>1"' >>isofiles/boot/grub/grub.cfg
-  echo "set timeout=3" >>isofiles/boot/grub/grub.cfg
+  echo "set timeout=10" >>isofiles/boot/grub/grub.cfg
   chmod -w isofiles/boot/grub/grub.cfg
   cd isofiles
   chmod +w md5sum.txt
