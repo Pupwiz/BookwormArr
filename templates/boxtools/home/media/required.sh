@@ -1,6 +1,4 @@
 #!/bin/bash
-echo "Getting Things Ready Please Wait..!" | wall -n
-echo "Installer adding final programs..!"  | wall -n
 systemctl enable emby-server
 systemctl stop transmission-daemon
 systemctl stop sonarr
@@ -10,16 +8,49 @@ systemctl stop lidarr
 systemctl stop prowlarr
 sudo usermod -a -G media emby
 sudo usermod -a -G emby media
-apt -qq install -y nodejs || exit 1
-pip install bottle --break-system-packages || exit 1
-pip install swig --break-system-packages || exit 1
-pip install -r /opt/mp4auto/setup/requirements.txt --break-system-packages || exit 1
+{
+    sleep 0.5
+    echo -e "XXX\n0\napt -qq install -y nodejs... \nXXX"
+    sleep 2
+     echo -e "XXX\n25\ninstalled nodejs... Done.\nXXX"
+    sleep 0.5
+
+    echo -e "XXX\n25\npip install bottle --break-system-packages... \nXXX"
+    sleep 2
+    echo -e "XXX\n50\ninstall bottle ... Done.\nXXX"
+    sleep 0.5
+
+    echo -e "XXX\n50\npip install swig --break-system-packages... \nXXX"
+    sleep 2
+    echo -e "XXX\n75\ninstall swig ... Done.\nXXX"
+    sleep 0.5
+
+    echo -e "XXX\n75\npip install -r /opt/mp4auto/setup/requirements.txt --break-system-packages... \nXXX"
+    sleep 2
+    echo -e "XXX\n100\nmp4auto requirements... Done.\nXXX"
+    sleep 1
+} |whiptail --title "Install Custom Extras" --gauge "Please wait while installing" 6 60 0
+#apt -qq install -y nodejs || exit 1
+#pip install bottle --break-system-packages || exit 1
+#pip install swig --break-system-packages || exit 1
+#pip install -r /opt/mp4auto/setup/requirements.txt --break-system-packages || exit 1
 chown media: -R /opt/mp4auto || exit 1
-echo "Installing Cloudcmd with Gritty..!"  | wall -n
+{
+    sleep 0.5
+    echo -e "XXX\n0\nsudo -H -E npm install cloudcmd -g... \nXXX"
+    sleep 2
+     echo -e "XXX\n25\nCloudcmd install... Done.\nXXX"
+    sleep 0.5
+
+    echo -e "XXX\n25\nsudo -H -E npm install gritty -g... \nXXX"
+    sleep 2
+    echo -e "XXX\n50\ninstall gritty... Done.\nXXX"
+    } |whiptail --title "Install Cloudcmd with Gritty" --gauge "Please wait while installing" 6 60 0
+#echo "Installing Cloudcmd with Gritty..!"  | wall -n
 #sudo -H -E npm config set user 0
 #sudo -H -E npm config set unsafe-perm true
-sudo -H -E npm install cloudcmd -g
-sudo -H -E npm install gritty -g
+#sudo -H -E npm install cloudcmd -g
+#sudo -H -E npm install gritty -g
 cat >"/etc/systemd/system/cloudcmd.service" <<SER
 [Unit]
         Description=Cloud Commander
