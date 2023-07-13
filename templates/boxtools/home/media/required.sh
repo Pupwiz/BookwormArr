@@ -3,8 +3,8 @@ systemctl enable emby-server
 systemctl stop transmission-daemon
 systemctl stop sonarr
 systemctl stop radarr
-systemctl stop readarr
-systemctl stop lidarr
+#systemctl stop readarr
+#systemctl stop lidarr
 systemctl stop prowlarr
 sudo usermod -a -G media emby
 sudo usermod -a -G emby media
