@@ -1,0 +1,20 @@
+[Unit]
+Description=Jellyfin Daemon
+After=network.target
+
+[Service]
+User=media
+
+Restart=on-failure
+
+TimeoutSec = 15
+Type=simple
+
+EnvironmentFile=/etc/jellyfin.conf
+WorkingDirectory=/opt/jellyfin
+ExecStart=/opt/jellyfin/jellyfin.sh
+RestartForceExitStatus=3
+ExecStop=/usr/bin/kill -- $MAINPID
+
+[Install]
+WantedBy=multi-user.target
