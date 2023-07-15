@@ -1,6 +1,6 @@
 #!/bin/bash
 JELLYFINDIR=/opt/jellyfin 
-FFMPEGDIR=/usr/share/ffmpeg 
+FFMPEGDIR=/usr/bin/ffmpeg 
 
 $JELLYFINDIR/jellyfin/jellyfin \
  -d $JELLYFINDIR/data \
