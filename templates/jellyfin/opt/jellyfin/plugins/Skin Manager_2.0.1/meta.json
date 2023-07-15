@@ -1,0 +1,15 @@
+{
+  "category": "General",
+  "changelog": "Added Ultrachromic and few fixes\n",
+  "description": "Skin manager helps you to download and install most popular skins for jellyfin\n",
+  "guid": "e9ca8b8e-ca6d-40e7-85dc-58e536df8eb3",
+  "name": "Skin Manager",
+  "overview": "Skins for jellyfin",
+  "owner": "danieladov",
+  "targetAbi": "10.7.0.0",
+  "timestamp": "2022-06-14T12:02:52.0000000Z",
+  "version": "2.0.1",
+  "status": "Active",
+  "autoUpdate": true,
+  "imagePath": ""
+}

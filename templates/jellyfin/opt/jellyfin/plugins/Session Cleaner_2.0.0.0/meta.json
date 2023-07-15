@@ -1,0 +1,15 @@
+{
+  "category": "General",
+  "changelog": "10.8 support\n",
+  "description": "Removes old sessions (devices).\n",
+  "guid": "ec9e2a74-1311-4a14-b302-158e3d95fd1d",
+  "name": "Session Cleaner",
+  "overview": "Removes old sessions (devices).",
+  "owner": "crobibero",
+  "targetAbi": "10.8.0.0",
+  "timestamp": "2022-03-27T16:37:51.0000000Z",
+  "version": "2.0.0.0",
+  "status": "Active",
+  "autoUpdate": true,
+  "imagePath": ""
+}
