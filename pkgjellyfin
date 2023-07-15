@@ -1,0 +1,16 @@
+
+DIR=$(pwd)
+mkdir -p $DIR/jellyfin_amd64/opt/jellyfin
+wget -P ./ -r -l1 -np "https://repo.jellyfin.org/releases/server/linux/stable/combined/" -A "jellyfin_*_amd64.tar.gz"
+for tar in $(find ./repo.jellyfin.org -name '*.tar.gz'); do mv $tar $DIR ; done
+rm repo.jellyfin.org/ -Rv
+tar xvf jellyfin*.tar.gz --strip-components=2 -C $DIR/jellyfin_amd64/opt/jellyfin
+VER=$(find ./jellyfin* -name '*.tar.gz' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+rm jellyfin*.tar.gz
+cp $DIR/templates/jellyfin/. $DIR/jellyfin_amd64/ -r
+sed -i.bak "/^[[:space:]]*Version:/ s/:.*/: ${VER}/" $DIR/jellyfin_amd64/DEBIAN/control 
+chown -R media: $DIR/jellyfin_amd64/home $DIR/jellyfin_amd64/opt
+dpkg-deb -b jellyfin_amd64/ jellyfin_${VER}-amd64.deb
+mv jellyfin_${VER}-amd64.deb $DIR/local_packages 
+rm jellyfin_amd64/ -r
+exit 0
