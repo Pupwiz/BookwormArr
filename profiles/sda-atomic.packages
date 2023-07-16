@@ -125,7 +125,10 @@ radarr
 prowlarr
 unpackerr
 boxtools
-emby-server
+#emby-server
+jellyfin-server
+jellyfin-web
+jellyfin-ffmpeg5
 flaresolverr
 xvfb
 chromium
