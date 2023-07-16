@@ -1,5 +1,5 @@
 DIR=$(pwd)
 wget -r -l1 -np "https://repo.jellyfin.org/releases/server/debian/stable/" -A "jellyfin-server_*_amd64.deb,jellyfin-web*all.deb,jellyfin-ffmpeg*-bookworm_amd64.deb"
-for deb in $(find ./repo.jellyfin.org -name '*.deb'); do mv $deb $DIR/local_packages ; done
+for DEB in $(find ./repo.jellyfin.org -name '*.deb'); do mv $DEB $DIR/local_packages ; done
 rm repo.jellyfin.org/ -r
 exit 0
