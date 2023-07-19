@@ -39,3 +39,11 @@ EOF
 sleep 1
 done
 ) | dialog --title "Cloaning MP4Automator" --gauge "Please wait" 7 70 0
+
+export ARCH=${ARCH:-`dpkg --print-architecture`}
+export ARCHES=$ARCH
+# export SPLASHPNG="$simple_cdd_dir/yourimage.png"
+export OMIT_MANUAL=1
+export OMIT_RELEASE_NOTES=1
+export DOJIGDO=0
+export DISKINFO="Simple-cdd Installer: Debian GNU/Linux $DEBVERSION $CODENAME $(date --utc +%Y%m%d)"
