@@ -45,7 +45,7 @@ file_mode = "0775"
 dir_mode = "0775"
 [[sonarr]]
   url = "http://127.0.0.1:8989/sonarr"
-  api_key = "sonarrkey"
+  api_key = "$sonarrkey"
   paths = ['/home/media/downloads/sonarr']
   protocols = "torrent"
 #  timeout = "10s"
@@ -54,7 +54,7 @@ dir_mode = "0775"
 
 [[radarr]]
   url = "http://127.0.0.1:7878/radarr"
-  api_key = "radarrkey"
+  api_key = "$radarrkey"
   paths = ['/home/media/downloads/radarr']
   protocols = "torrent"
   timeout = "10s"
@@ -63,7 +63,7 @@ dir_mode = "0775"
 
 [[lidarr]]
   url = "http://127.0.0.1:8686/lidarr"
-  api_key = "lidarrkey"
+  api_key = "$lidarrkey"
   paths = ['/home/media/downloads/lidarr']
   protocols = "torrent"
 #  delete_orig = false
@@ -71,7 +71,7 @@ dir_mode = "0775"
 
 [[readarr]]
   url = "http://127.0.0.1:8787/readarr"
-  api_key = "readarrkey"
+  api_key = "$readarrkey"
   paths = ['/home/media/downloads/readarr']
   protocols = "torrent"
 #  timeout = "10s"
